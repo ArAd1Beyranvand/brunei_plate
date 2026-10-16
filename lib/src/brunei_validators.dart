@@ -1,15 +1,13 @@
 import 'package:plate_core/plate_core.dart';
 
-/// Judges a Brunei registration on a `BruneiPlates.singleRow` spec. Reports,
-/// never bars a keystroke.
+/// Judges a `BruneiPlates.singleRow` registration. Reports, never bars a
+/// keystroke.
 ///
-/// Checks what the article states: the series run `B 1`–`BZZ 9999` and `KA 1`–
-/// `KP 9999`, so a prefix starts with B or K, a lone K is never issued and a K
-/// series' second letter is A–P; I and O are never issued; the number is 1–9999
-/// with no leading zero. A military plate is `MOD` plus a number and a branch
-/// letter, and is exempt from the letter rules (it has an O). Does not check
-/// which prefixes the Land Transport Department has actually released, nor
-/// royal vanity plates.
+/// Series run `B 1`–`BZZ 9999` and `KA 1`–`KP 9999`: a prefix starts with B or
+/// K, a lone K is never issued, a K series' second letter is A–P, I and O are
+/// never issued, and the number is 1–9999 without leading zero. `MOD` plus a
+/// number and branch letter is exempt from the letter rules. Released prefixes
+/// and royal vanity plates are not checked.
 class BruneiValidator extends GatedPlateValidator {
   const BruneiValidator();
 
@@ -20,7 +18,8 @@ class BruneiValidator extends GatedPlateValidator {
 
   static const String reasonPrefixMissing = 'A plate starts with letters.';
   static const String reasonSeries = 'A plate starts with B or K, or is MOD.';
-  static const String reasonLoneK = 'There is no plate with the single letter K.';
+  static const String reasonLoneK =
+      'There is no plate with the single letter K.';
   static const String reasonKSeries = 'A K series runs from KA to KP.';
   static const String reasonNoIO = 'I and O are not issued on Brunei plates.';
   static const String reasonNumber = 'The number is 1 to 9999.';
@@ -72,9 +71,8 @@ class BruneiValidator extends GatedPlateValidator {
   }
 }
 
-/// Judges a `BruneiPlates.diplomatic` value: a sequential number and the
-/// mission's number, each one or two digits. The article documents no ranges
-/// and lists no missions, so there is nothing further to check.
+/// Judges a `BruneiPlates.diplomatic` value: two numbers of one or two digits.
+/// No ranges are documented.
 class BruneiDiplomaticValidator extends GatedPlateValidator {
   const BruneiDiplomaticValidator();
 

@@ -2,12 +2,9 @@ import 'dart:math';
 
 import 'package:plate_core/plate_core.dart';
 
-/// Generates plausible values for fixtures and demos. Pure Dart.
-///
-/// Fills the `prefix`, `number` and `suffix` groups of a Brunei
-/// `singleRow` spec. [prefix] fixes the leading letters (`'BA'`, `'MOD'`);
-/// the rest is drawn from the issued series: B, then any letter but I and O,
-/// or K, then A–P. Numbers have no leading zero.
+/// Generates plausible values for a `singleRow` spec. [prefix] fixes the
+/// leading letters; the rest follows the issued series (B then any letter but
+/// I and O, or K then A–P). Numbers have no leading zero.
 abstract final class BruneiSerialGenerator {
   static const String _issued = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
   static const String _kSecond = 'ABCDEFGHJKLMNP';
