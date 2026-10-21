@@ -1,5 +1,7 @@
 import 'package:plate_core/plate_core.dart';
 
+final RegExp _unissued = RegExp('[IO]');
+
 /// Judges a `BruneiPlates.singleRow` registration. Reports, never bars a
 /// keystroke.
 ///
@@ -46,7 +48,7 @@ class BruneiValidator extends GatedPlateValidator {
       if (prefix[0] != 'B' && prefix[0] != 'K') {
         return const PlateValidation.invalid(reasonSeries);
       }
-      if (RegExp('[IO]').hasMatch(prefix + suffix)) {
+      if (_unissued.hasMatch(prefix + suffix)) {
         return const PlateValidation.invalid(reasonNoIO);
       }
       if (prefix[0] == 'K') {
