@@ -1,5 +1,5 @@
 name: brunei_plate
-description: "Brunei's licence plates for the plate_core library — the single-row plate on black, green and yellow, and the diplomatic NN·NN·DC plate, with their themes, alphabets and advisory validators."
+description: "Brunei's licence plates for plate_core — the single-row plate on black, green and yellow, and the diplomatic NN·NN·DC plate, with their themes, alphabets and advisory validators."
 version: 0.1.0
 repository: https://github.com/ArAd1Beyranvand/brunei_plate
 resolution: workspace
