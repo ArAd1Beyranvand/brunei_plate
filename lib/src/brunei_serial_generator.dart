@@ -9,7 +9,11 @@ abstract final class BruneiSerialGenerator {
   static const String _issued = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
   static const String _kSecond = 'ABCDEFGHJKLMNP';
 
-  static List<String?> generate(PlateSpec spec, {Random? random, String prefix = ''}) {
+  static List<String?> generate(
+    PlateSpec spec, {
+    Random? random,
+    String prefix = '',
+  }) {
     final Random rnd = random ?? Random();
     final List<String?> values = List<String?>.filled(spec.slots.length, null);
     final List<int> prefixSlots = _require(spec, 'prefix');
@@ -24,7 +28,8 @@ abstract final class BruneiSerialGenerator {
           : pool[rnd.nextInt(pool.length)];
     }
     for (int i = 0; i < numberSlots.length; i++) {
-      values[numberSlots[i]] = (i == 0 ? 1 + rnd.nextInt(9) : rnd.nextInt(10)).toString();
+      values[numberSlots[i]] = (i == 0 ? 1 + rnd.nextInt(9) : rnd.nextInt(10))
+          .toString();
     }
     for (final int i in spec.indicesOfGroup('suffix')) {
       values[i] = _issued[rnd.nextInt(_issued.length)];
@@ -36,7 +41,11 @@ abstract final class BruneiSerialGenerator {
 List<int> _require(PlateSpec spec, String key) {
   final List<int> indices = spec.indicesOfGroup(key);
   if (indices.isEmpty) {
-    throw ArgumentError.value(spec.id, 'spec', 'has no text group named "$key"');
+    throw ArgumentError.value(
+      spec.id,
+      'spec',
+      'has no text group named "$key"',
+    );
   }
   return indices;
 }

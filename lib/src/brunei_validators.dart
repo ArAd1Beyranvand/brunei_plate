@@ -20,7 +20,8 @@ class BruneiValidator extends GatedPlateValidator {
 
   static const String reasonPrefixMissing = 'A plate starts with letters.';
   static const String reasonSeries = 'A plate starts with B or K, or is MOD.';
-  static const String reasonLoneK = 'There is no plate with the single letter K.';
+  static const String reasonLoneK =
+      'There is no plate with the single letter K.';
   static const String reasonKSeries = 'A K series runs from KA to KP.';
   static const String reasonNoIO = 'I and O are not issued on Brunei plates.';
   static const String reasonNumber = 'The number is 1 to 9999.';
@@ -84,7 +85,10 @@ class BruneiDiplomaticValidator extends GatedPlateValidator {
 
   @override
   PlateValidation judge(PlateEntry entry) {
-    for (final String part in <String>[entry.group('serial'), entry.group('mission')]) {
+    for (final String part in <String>[
+      entry.group('serial'),
+      entry.group('mission'),
+    ]) {
       if (part.isEmpty || part.length > 2 || !isDigits(part)) {
         return const PlateValidation.invalid(reasonDigits);
       }

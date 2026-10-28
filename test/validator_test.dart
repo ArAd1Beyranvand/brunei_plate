@@ -6,7 +6,11 @@ import 'package:plate_core/plate_core.dart';
 
 void main() {
   PlateValidation single(String prefix, String number, [String suffix = '']) =>
-      BruneiValidator.validateFields(prefix: prefix, number: number, suffix: suffix);
+      BruneiValidator.validateFields(
+        prefix: prefix,
+        number: number,
+        suffix: suffix,
+      );
 
   test('accepts the article and reference examples', () {
     for (final (String, String, String) p in <(String, String, String)>[
@@ -35,14 +39,18 @@ void main() {
   });
 
   test('the diplomatic numbers are one or two digits', () {
-    PlateValidation dip(String value) => const BruneiDiplomaticValidator().validate(
-      PlateEntry(spec: BruneiPlates.diplomatic(), values: value.split('')),
-    );
+    PlateValidation dip(String value) =>
+        const BruneiDiplomaticValidator().validate(
+          PlateEntry(spec: BruneiPlates.diplomatic(), values: value.split('')),
+        );
     expect(dip('0326').isValid, isTrue);
     expect(
       const BruneiDiplomaticValidator()
           .validate(
-            PlateEntry(spec: BruneiPlates.diplomatic(missionDigits: 1), values: '012'.split('')),
+            PlateEntry(
+              spec: BruneiPlates.diplomatic(missionDigits: 1),
+              values: '012'.split(''),
+            ),
           )
           .isValid,
       isTrue,
@@ -50,9 +58,15 @@ void main() {
   });
 
   test('specs are cached and sized by their parameters', () {
-    expect(identical(BruneiPlates.singleRow(), BruneiPlates.singleRow()), isTrue);
+    expect(
+      identical(BruneiPlates.singleRow(), BruneiPlates.singleRow()),
+      isTrue,
+    );
     expect(BruneiPlates.singleRow(prefix: 3, digits: 4).slotCount, 7);
-    expect(BruneiPlates.singleRow(prefix: 3, digits: 4, suffix: true).slotCount, 8);
+    expect(
+      BruneiPlates.singleRow(prefix: 3, digits: 4, suffix: true).slotCount,
+      8,
+    );
     expect(BruneiPlates.diplomatic().slotCount, 4);
     expect(BruneiPlates.diplomatic(serialDigits: 1).slotCount, 3);
     expect(() => BruneiPlates.singleRow(prefix: 4), throwsArgumentError);
@@ -66,9 +80,14 @@ void main() {
         prefix: 1 + rnd.nextInt(3),
         digits: 1 + rnd.nextInt(4),
       );
-      final List<String?> values = BruneiSerialGenerator.generate(spec, random: rnd);
+      final List<String?> values = BruneiSerialGenerator.generate(
+        spec,
+        random: rnd,
+      );
       expect(
-        const BruneiValidator().validate(PlateEntry(spec: spec, values: values)).isValid,
+        const BruneiValidator()
+            .validate(PlateEntry(spec: spec, values: values))
+            .isValid,
         isTrue,
         reason: '$values',
       );

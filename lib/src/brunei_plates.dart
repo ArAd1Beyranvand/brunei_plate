@@ -57,7 +57,8 @@ abstract final class _Layout {
   static const double dipDotLift = 6;
 }
 
-Iterable<int> _range(int from, int to) => Iterable<int>.generate(to - from, (int i) => from + i);
+Iterable<int> _range(int from, int to) =>
+    Iterable<int>.generate(to - from, (int i) => from + i);
 
 /// One registration's shape: 1–3 prefix letters, 1–4 digits, and whether a
 /// military branch letter follows (`MOD 1925 A`).
@@ -76,11 +77,17 @@ abstract final class BruneiPlates {
   static const List<int> digitLengths = <int>[1, 2, 3, 4];
   static const List<int> diplomaticDigitLengths = <int>[1, 2];
 
-  static final Map<BruneiFormat, PlateSpec> _single = <BruneiFormat, PlateSpec>{};
-  static final Map<(int, int), PlateSpec> _diplomatic = <(int, int), PlateSpec>{};
+  static final Map<BruneiFormat, PlateSpec> _single =
+      <BruneiFormat, PlateSpec>{};
+  static final Map<(int, int), PlateSpec> _diplomatic =
+      <(int, int), PlateSpec>{};
 
   /// Cached per format.
-  static PlateSpec singleRow({int prefix = 2, int digits = 4, bool suffix = false}) {
+  static PlateSpec singleRow({
+    int prefix = 2,
+    int digits = 4,
+    bool suffix = false,
+  }) {
     if (!prefixLengths.contains(prefix) || !digitLengths.contains(digits)) {
       throw ArgumentError(
         'A Brunei registration is 1–3 letters and 1–4 digits '
@@ -116,7 +123,10 @@ abstract final class BruneiPlates {
       _Layout.maxPitch,
       (_Layout.width - 2 * _Layout.minMargin - gaps) / cells,
     );
-    final double slotHeight = math.min(_Layout.slotHeight, pitch / _Layout.glyphWidthRatio);
+    final double slotHeight = math.min(
+      _Layout.slotHeight,
+      pitch / _Layout.glyphWidthRatio,
+    );
     final double top = (_Layout.height - slotHeight) / 2;
     final double content = cells * pitch + gaps;
     final double left = (_Layout.width - content) / 2;
@@ -154,7 +164,9 @@ abstract final class BruneiPlates {
       ],
       textGroups: <PlateTextGroup>[
         PlateTextGroup(<int>[..._range(0, f.prefix)], key: 'prefix'),
-        PlateTextGroup(<int>[..._range(f.prefix, f.prefix + f.digits)], key: 'number'),
+        PlateTextGroup(<int>[
+          ..._range(f.prefix, f.prefix + f.digits),
+        ], key: 'number'),
         if (f.suffix) PlateTextGroup(<int>[cells - 1], key: 'suffix'),
       ],
     );
@@ -167,7 +179,10 @@ abstract final class BruneiPlates {
     final double serialWidth = serialDigits * _Layout.dipPitch;
     final double missionWidth = missionDigits * _Layout.dipPitch;
     final double content =
-        serialWidth + missionWidth + 2 * _Layout.dipDotCell + _Layout.dipCodeWidth;
+        serialWidth +
+        missionWidth +
+        2 * _Layout.dipDotCell +
+        _Layout.dipCodeWidth;
     final double left = (_Layout.width - content) / 2;
     final double top = (_Layout.height - _Layout.dipSlotHeight) / 2;
     final double dot1 = left + serialWidth;
@@ -203,12 +218,22 @@ abstract final class BruneiPlates {
         for (final double x in <double>[dot1, dot2])
           PlateLabel(
             text: '·',
-            box: PlateBox(x, top - _Layout.dipDotLift, _Layout.dipDotCell, _Layout.dipSlotHeight),
+            box: PlateBox(
+              x,
+              top - _Layout.dipDotLift,
+              _Layout.dipDotCell,
+              _Layout.dipSlotHeight,
+            ),
             glyphHeight: _Layout.dipDotGlyph,
           ),
         PlateLabel(
           text: 'DC',
-          box: PlateBox(codeLeft, top, _Layout.dipCodeWidth, _Layout.dipSlotHeight),
+          box: PlateBox(
+            codeLeft,
+            top,
+            _Layout.dipCodeWidth,
+            _Layout.dipSlotHeight,
+          ),
           glyphHeight: _Layout.dipCodeGlyph,
         ),
       ],
