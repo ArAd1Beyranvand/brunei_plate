@@ -10,7 +10,17 @@ https://platexample.ir/#/discover/brunei
 
 # brunei_plate
 
-Brunei's licence plates for [`plate_core`](https://pub.dev/packages/plate_core) — the single-row plate on black, taxi green and `BX` yellow, and the white diplomatic `NN·NN·DC` plate, with their themes, alphabets and advisory validators.
+Brunei's licence plates for the `plate_core` library. Two geometries on the article's 533×152 mm: the single-row plate, whose width is the same for every registration and whose cells shrink to fit, and the diplomatic `NN·NN·DC`. Private, military, taxi/bus and the yellow `BX` series are the single row on another theme.
+
+## Install
+
+```yaml
+dependencies:
+  plate_core: ^0.12.0
+  brunei_plate: ^0.1.0
+```
+
+## Use
 
 ```dart
 import 'package:plate_core/plate_core.dart';
@@ -21,31 +31,31 @@ PlateCanvas(
   theme: BruneiThemes.standard,
   validator: const BruneiValidator(),
   autoValidate: true,
+  onChooseCharacter: noCharacterChooser,
 );
 ```
 
-## Also available
+## Contains
 
-- [`plate_core`](https://pub.dev/packages/plate-core) - Paint license plates.
-- [`plate_alphabet`](https://pub.dev/packages/plate-alphabet) - A library of alphabets for license plates.
-- [`plate_keypad`](https://pub.dev/packages/plate-keypad) - A character picker for license plates.
-- [`plate_number_holder`](https://pub.dev/packages/plate-number-holder) - A frame to hold license plate numbers.
-- [`algeria_plate`](https://pub.dev/packages/algeria-plate) - Algeria's licence plates.
-- [`bolivia_plate`](https://pub.dev/packages/bolivia-plate) - Bolivia's licence plates.
-- [`brunei_plate`](https://pub.dev/packages/brunei-plate) - Brunei's licence plates.
-- [`colombia_plate`](https://pub.dev/packages/colombia-plate) - Colombia's licence plates.
-- [`cuba_plate`](https://pub.dev/packages/cuba-plate) - Cuba's licence plates.
-- [`germany_plate`](https://pub.dev/packages/germany-plate) - Germany's licence plates.
-- [`india_plate`](https://pub.dev/packages/india-plate) - India's licence plates.
-- [`indonesia_plate`](https://pub.dev/packages/indonesia-plate) - Indonesia's licence plates.
-- [`iran_plate`](https://pub.dev/packages/iran-plate) - Iran's licence plates.
-- [`iranshahr_plate`](https://pub.dev/packages/iranshahr-plate) - Iranshahr region's licence plates.
-- [`lebanon_plate`](https://pub.dev/packages/lebanon-plate) - Lebanon's licence plates.
-- [`malaysia_plate`](https://pub.dev/packages/malaysia-plate) - Malaysia's licence plates.
-- [`mali_plate`](https://pub.dev/packages/mali-plate) - Mali's licence plates.
-- [`niger_plate`](https://pub.dev/packages/niger-plate) - Niger's licence plates.
-- [`palestine_plate`](https://pub.dev/packages/palestine-plate) - Palestine's licence plates.
-- [`sudan_plate`](https://pub.dev/packages/sudan-plate) - Sudan's licence plates.
-- [`tunisia_plate`](https://pub.dev/packages/tunisia-plate) - Tunisia's licence plates.
-- [`venezuela_plate`](https://pub.dev/packages/venezuela-plate) - Venezuela's licence plates.
-- [`yemen_plate`](https://pub.dev/packages/yemen-plate) - Yemen's licence plates.
+- `BruneiCountry` — country panel: `brunei`.
+- `BruneiPlates` — 2 plate specs (factories): `singleRow()`, `diplomatic()`.
+- `BruneiThemes` — 4 themes: `standard`, `taxi`, `yellow`, `diplomatic`.
+- `BruneiValidator` — advisory validator; flags the frame, never blocks a keystroke.
+- `BruneiDiplomaticValidator` — advisory validator; flags the frame, never blocks a keystroke.
+- `BruneiSerialGenerator` — random plate generator.
+
+## Plates
+
+Brunei's plate geometries.
+
+* `singleRow` covers private, commercial, service, military, taxi, bus and
+  `BX` plates; colour is the theme, not the spec. Text groups: `prefix`,
+  `number` and, when present, `suffix`.
+* `diplomatic` is `NN·NN·DC` on white. Text groups: `serial`, `mission`.
+
+Not implemented, for want of a reference: dealer, royal and motorcycle plates.
+
+## Part of plate
+
+Painted by [`plate_core`](https://pub.dev/packages/plate_core); alphabets shared through [`plate_alphabet`](https://pub.dev/packages/plate_alphabet); optional character picker in [`plate_keypad`](https://pub.dev/packages/plate_keypad).
+
